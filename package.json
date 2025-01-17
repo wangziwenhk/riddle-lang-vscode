@@ -1,0 +1,40 @@
+{
+  "name": "riddle-lang",
+  "displayName": "Riddle Language",
+  "description": "a support of riddle language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "riddle",
+        "aliases": [
+          "Riddle",
+          "riddle"
+        ],
+        "extensions": [
+          ".red"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "riddle",
+        "scopeName": "source.riddle",
+        "path": "./syntaxes/riddle.tmLanguage.json"
+      }
+    ]
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
+  },
+  "main": "src/extension.js"
+}
