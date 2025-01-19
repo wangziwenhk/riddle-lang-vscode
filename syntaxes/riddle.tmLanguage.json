@@ -3,19 +3,13 @@
 	"name": "Riddle",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#strings"
 		},
 		{
-			"include": "#strings"
+			"include": "#statement"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.riddle",
-				"match": "\\b(if|while|for|return|var|val|func)\\b"
-			}]
-		},
 		"strings": {
 			"name": "string.quoted.double.riddle",
 			"begin": "\"",
@@ -26,6 +20,62 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"number": {
+			"name": "constant.numeric.riddle",
+			"match": "\\b\\d+(\\.\\d+)?\\b"
+		},
+		"expression": {
+			"name": "meta.expression.riddle",
+			"patterns": [
+				{
+					"include": "#string"
+				},
+				{
+					"include": "#number"
+				}
+			]
+		},
+		"statement": {
+			"patterns": [
+				{
+					"include": "#varDefine"
+				},
+				{
+					"include": "#funcDefine"
+				}
+			]
+		},
+		"varDefine": {
+			"name": "meta.var.define.riddle",
+			"begin": "\\b(var)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*=\\s*",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.var.riddle"
+				},
+				"2": {
+					"name": "variable.other.riddle"
+				}
+			},
+			"end": "(;)?",
+			"patterns": [
+				{
+					"include": "#expression"
+				}
+			]
+		},
+		"funcDefine": {
+			"name":"meta.func.define.riddle",
+			"begin": "\\b(fun)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*\\(",
+			"beginCaptures": {
+				"1" : {
+					"name":"keyword.control.func.riddle"
+				},
+				"2": {
+					"name": "variable.other.riddle"
+				}
+			},
+			"end": "\\s*\\)\\s*{\\s*}"
 		}
 	},
 	"scopeName": "source.riddle"

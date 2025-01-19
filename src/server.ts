@@ -18,12 +18,6 @@ const connection = createConnection(ProposedFeatures.all);
 // 创建文档管理器
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
-// 监听文档变化
-documents.onDidChangeContent((change) => {
-    const text: string = change.document.getText();
-    connection.console.log(`Document changed: ${text}`);
-});
-
 // 监听初始化请求
 connection.onInitialize((_params: InitializeParams): InitializeResult => {
     return {
@@ -54,7 +48,7 @@ connection.onCompletion((params: CompletionParams): LSCompletionItem[] => {
 // 处理补全项解析，为补全项添加更多信息
 connection.onCompletionResolve((item: LSCompletionItem): LSCompletionItem => {
     if (item.label === 'func') {
-        item.documentation = '在 Riddle 中使用 func 定义一个函数。';
+        item.documentation = '在 Riddle 中使用 fun 定义一个函数。';
     }
     return item;
 });
