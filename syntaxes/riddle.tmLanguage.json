@@ -65,17 +65,67 @@
 			]
 		},
 		"funcDefine": {
-			"name":"meta.func.define.riddle",
-			"begin": "\\b(fun)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*\\(",
+			"name": "meta.func.define.riddle",
+			"begin": "\\b(fun)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*",
 			"beginCaptures": {
-				"1" : {
-					"name":"keyword.control.func.riddle"
+				"1": {
+					"name": "keyword.control.func.riddle"
 				},
 				"2": {
 					"name": "variable.other.riddle"
 				}
 			},
-			"end": "\\s*\\)\\s*{\\s*}"
+			"patterns": [
+				{
+					"include": "#parameters"
+				},
+				{
+					"include": "#returnType"
+				}
+			],
+			"end": "\\s*{\\s*}"
+		},
+		"returnType": {
+			"name": "meta.returnType.riddle",
+			"begin": "->",
+			"end": "",
+			"patterns": [
+				{
+					"name": "storage.type.return.riddle",
+					"match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\b"
+				}
+			]
+		},
+		"parameters": {
+			"name": "meta.parameters.riddle",
+			"begin": "\\(",
+			"patterns": [
+				{
+					"include": "#parameter"
+				}
+			],
+			"end": "\\)"
+		},
+		"parameter": {
+			"name": "variable.parameter.function.riddle",
+			"match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*:\\s*([A-Za-z_][A-Za-z0-9_]*)\\b",
+			"captures": {
+				"1": {
+					"name": "variable.parameter.name.riddle"
+				},
+				"2": {
+					"name": "storage.type.parameter.riddle"
+				}
+			}
+		},
+		"block": {
+			"begin": "\\s*{\\s*",
+			"patterns": [
+				{
+					"include": "#statement"
+				}
+			],
+			"end": "\\s*}\\s*"
 		}
 	},
 	"scopeName": "source.riddle"
